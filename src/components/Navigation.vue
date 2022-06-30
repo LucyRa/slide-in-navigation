@@ -1,6 +1,5 @@
 <script>
 import "../assets/app.scss";
-import IconMenu from "./icons/IconMenu.vue";
 import IconArrow from "./icons/IconArrow.vue";
 import SolidButton from "./SolidButton.vue";
 
@@ -71,7 +70,12 @@ export default {
   methods: {
     toggleSlidePanel() {
       const slidePanel = document.querySelector("div.nav-slide-panel");
-      slidePanel.classList.toggle("open");
+      const navControl = document.querySelector("button.nav-control");
+
+      console.log(navControl);
+
+      navControl.classList.toggle("active");
+      slidePanel.classList.toggle("show");
     },
     activeNavItem: (active) => {
       return {
@@ -85,16 +89,27 @@ export default {
         show: this.navVisibility,
       };
     },
+    navControlClass: function () {
+      return {
+        active: this.navVisibility,
+      };
+    },
   },
-  components: { IconMenu, IconArrow, SolidButton },
+  components: { IconArrow, SolidButton },
 };
 </script>
 
 <template>
   <nav class="slide-in-nav">
     <div class="nav-bar">
-      <button class="nav-control" @click="navVisibility = !navVisibility">
-        <IconMenu />
+      <button
+        class="nav-control"
+        :class="navControlClass"
+        @click="navVisibility = !navVisibility"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
     </div>
 
@@ -133,7 +148,7 @@ export default {
   </nav>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../assets/partials/colours.scss";
 
 nav.slide-in-nav {
@@ -145,15 +160,9 @@ nav.slide-in-nav {
   width: 100vw;
 }
 
-.nav-items-container {
-  width: 100%;
-  margin-bottom: 2.5rem;
-}
-
 .nav-bar,
 .nav-slide-panel {
   background-color: $darkBg;
-  padding: 1.25rem;
   backdrop-filter: blur(0.75rem);
   box-shadow: 0px 2px 20px rgba(84, 82, 88, 0.06);
 }
@@ -162,6 +171,7 @@ nav.slide-in-nav {
   width: 100%;
   min-height: 3.875rem;
   border-radius: 0 0 0.4rem 0.4rem;
+  padding: 1.25rem 2.5rem;
 
   button.nav-control {
     float: right;
@@ -173,14 +183,66 @@ nav.slide-in-nav {
   }
 }
 
+button.nav-control {
+  position: relative;
+  width: 1.666875rem;
+  height: 1.25rem;
+
+  span {
+    position: absolute;
+    display: block;
+    width: 1.666875rem;
+    height: 1px;
+    background-color: $white;
+    transition: transform 300ms ease;
+    border-radius: 999px;
+
+    &:first-child {
+      top: 0;
+    }
+
+    &:nth-child(2) {
+      top: 50%;
+      transition: all 300ms ease;
+    }
+
+    &:last-child {
+      bottom: 0;
+    }
+  }
+
+  &.active {
+    span {
+      &:first-child,
+      &:last-child {
+        top: 50%;
+      }
+
+      &:first-child {
+        transform: translateY(-50%) rotate(45deg);
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:last-child {
+        bottom: unset;
+        transform: translateY(-50%) rotate(-45deg);
+      }
+    }
+  }
+}
+
 .nav-slide-panel {
   position: absolute;
   right: 0;
   top: 5.125rem;
   width: 100%;
   height: calc(100vh - 5.125rem);
-  transform: translateY(100vh);
-  transition: all 0.8s ease;
+  transform: translateY(100%);
+  transition: transform 300ms linear;
+  will-change: transform;
   padding: 2.5rem 1.25rem;
   border-radius: 0.4rem 0.4rem 0 0;
   display: flex;
@@ -191,7 +253,13 @@ nav.slide-in-nav {
 
   &.show {
     transform: translateY(0);
+    transition: transform 300ms linear;
   }
+}
+
+.nav-items-container {
+  width: 100%;
+  margin-bottom: 2.5rem;
 }
 
 a.nav-item {
@@ -230,10 +298,10 @@ a.nav-item {
 a.nav-action {
   width: 100%;
   margin-bottom: 1.25rem;
+
   button.btn-solid {
     width: 100%;
     margin-top: 1.875rem;
-    color: $white;
   }
 
   span {
@@ -241,6 +309,7 @@ a.nav-action {
     display: block;
     padding-left: 2.125rem;
     color: $grey;
+    transition: color 300ms ease;
 
     &::before {
       content: "";
@@ -264,6 +333,10 @@ a.nav-action {
         background-image: url("../assets/mail.svg");
       }
     }
+
+    &:hover {
+      color: $white;
+    }
   }
 
   &:last-child {
@@ -275,7 +348,7 @@ a.nav-action {
   .nav-slide-panel {
     max-width: 20rem;
     border-radius: 0.4rem 0 0 0;
-    transform: translateX(100vw);
+    transform: translateX(100%);
 
     &.show {
       transform: translateX(0);
