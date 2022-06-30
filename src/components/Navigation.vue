@@ -133,7 +133,7 @@ export default {
   </nav>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../assets/partials/colours.scss";
 
 nav.slide-in-nav {
@@ -180,7 +180,8 @@ nav.slide-in-nav {
   width: 100%;
   height: calc(100vh - 5.125rem);
   transform: translateY(100vh);
-  transition: all 0.8s ease;
+  transition: transform 360ms linear;
+  will-change: transform;
   padding: 2.5rem 1.25rem;
   border-radius: 0.4rem 0.4rem 0 0;
   display: flex;
@@ -230,10 +231,10 @@ a.nav-item {
 a.nav-action {
   width: 100%;
   margin-bottom: 1.25rem;
+
   button.btn-solid {
     width: 100%;
     margin-top: 1.875rem;
-    color: $white;
   }
 
   span {
@@ -263,6 +264,10 @@ a.nav-action {
       &::before {
         background-image: url("../assets/mail.svg");
       }
+    }
+
+    &:hover {
+      color: $white;
     }
   }
 
