@@ -180,8 +180,7 @@ nav.slide-in-nav {
   width: 100%;
   height: calc(100vh - 5.125rem);
   transform: translateY(100vh);
-  transition: all;
-  transition-duration: 400ms;
+  transition: all 0.8s ease;
   padding: 2.5rem 1.25rem;
   border-radius: 0.4rem 0.4rem 0 0;
   display: flex;
@@ -200,6 +199,7 @@ a.nav-item {
   position: relative;
   width: fit-content;
   margin-bottom: 1.25rem;
+  font-size: 1.125rem;
   color: #ffffff;
   transition: all 300ms ease-in-out;
 
@@ -210,7 +210,6 @@ a.nav-item {
   }
 
   &.active {
-    font-size: 1.125rem;
     color: $lightGreen;
   }
 
@@ -238,8 +237,9 @@ a.nav-action {
   }
 
   span {
+    position: relative;
     display: block;
-    margin-left: 2.125rem;
+    padding-left: 2.125rem;
     color: $grey;
 
     &::before {
@@ -250,7 +250,7 @@ a.nav-action {
       background-size: 1.375rem 1.375rem;
       background-repeat: no-repeat;
       position: absolute;
-      left: 1.375rem;
+      left: 0;
     }
 
     &.telephone {
@@ -289,7 +289,7 @@ a.nav-action {
   }
 
   .nav-slide-panel {
-    padding: 3.75rem 2.5rem;
+    padding: 3.75rem 2rem;
   }
 
   a.nav-item {
