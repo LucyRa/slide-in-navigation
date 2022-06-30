@@ -379,6 +379,7 @@ a.nav-action {
   align-items: center;
   gap: 1.25rem;
   flex-wrap: wrap;
+  margin-top: 1.25rem;
 }
 
 a.nav-social-item {
@@ -409,7 +410,7 @@ a.nav-social-item {
   }
 
   .nav-slide-panel {
-    padding: 3.75rem 2rem;
+    padding: 2.75rem 2rem;
   }
 
   a.nav-item {
