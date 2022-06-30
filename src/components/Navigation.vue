@@ -180,7 +180,7 @@ nav.slide-in-nav {
   width: 100%;
   height: calc(100vh - 5.125rem);
   transform: translateY(100vh);
-  transition: transform 360ms linear;
+  transition: transform 300ms linear;
   will-change: transform;
   padding: 2.5rem 1.25rem;
   border-radius: 0.4rem 0.4rem 0 0;
@@ -192,6 +192,7 @@ nav.slide-in-nav {
 
   &.show {
     transform: translateY(0);
+    transition: transform 300ms linear;
   }
 }
 
@@ -242,6 +243,7 @@ a.nav-action {
     display: block;
     padding-left: 2.125rem;
     color: $grey;
+    transition: color 300ms ease;
 
     &::before {
       content: "";
