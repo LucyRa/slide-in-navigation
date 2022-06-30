@@ -102,11 +102,13 @@ nav.slide-in-nav {
 .nav-slide-panel {
   background-color: $darkBg;
   padding: 1.25rem;
+  backdrop-filter: blur(0.75rem);
+  box-shadow: 0px 2px 20px rgba(84, 82, 88, 0.06);
 }
 
 .nav-bar {
   width: 100%;
-  min-height: 5rem;
+  min-height: 3.875rem;
   border-radius: 0 0 0.5rem 0.5rem;
 
   button.nav-control {
@@ -114,7 +116,7 @@ nav.slide-in-nav {
   }
 
   svg.menu-icon {
-    width: 2.5rem;
+    width: 1.5rem;
     color: $white;
   }
 }
@@ -122,16 +124,30 @@ nav.slide-in-nav {
 .nav-slide-panel {
   position: absolute;
   right: 0;
-  top: 6.25rem;
+  top: 5.125rem;
+  width: 100%;
   max-width: 20rem;
-  height: calc(100vh - 6.25rem);
+  height: calc(100vh - 5.125rem);
   border-radius: 0.5rem 0 0 0.5rem;
   transform: translateX(100%);
   transition: all;
-  transition-duration: 300ms;
+  transition-duration: 400ms;
+  padding: 3.75rem 2.5rem;
 
   &.show {
     transform: translateX(0);
+  }
+}
+
+a.nav-item {
+  display: block;
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 </style>
