@@ -1,8 +1,6 @@
 # Slide in Navigation (Component)
 
-[<img alt="Rendering of slide in navigation component" width="100%" src="src/assets/nav-slide-glass.png" />](https://lramplin.co.uk/)
-
-![Rendering of slide in navigation component](https://github.com/[LucyRa]/[slide-in-navigation]/blob/[main]/src/assets/nav-slide-glass.png?raw=true)
+![Rendering of slide in navigation component](https://github.com/LucyRa/slide-in-navigation/blob/main/src/assets/nav-slide-glass.png?raw=true)
 
 ## Project Setup
 
