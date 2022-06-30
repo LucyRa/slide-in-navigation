@@ -282,7 +282,7 @@ a.nav-action {
   .nav-slide-panel {
     max-width: 20rem;
     border-radius: 0.4rem 0 0 0;
-    transform: translateX(100vw);
+    transform: translateX(100%);
 
     &.show {
       transform: translateX(0);
