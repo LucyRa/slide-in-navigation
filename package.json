@@ -9,6 +9,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@heroicons/vue": "^1.0.6",
     "pinia": "^2.0.14",
     "vue": "^3.2.37"
   },
@@ -21,6 +22,8 @@
     "eslint-plugin-vue": "^9.0.0",
     "jsdom": "^20.0.0",
     "prettier": "^2.5.1",
+    "sass": "^1.53.0",
+    "sass-loader": "^13.0.2",
     "vite": "^2.9.12",
     "vitest": "^0.15.1"
   }
