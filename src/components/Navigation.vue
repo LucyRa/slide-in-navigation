@@ -1,6 +1,8 @@
 <script>
 import "../assets/app.scss";
 import IconArrow from "./icons/IconArrow.vue";
+import IconInsta from "./icons/IconInsta.vue";
+import IconGithub from "./icons/IconGithub.vue";
 import SolidButton from "./SolidButton.vue";
 
 export default {
@@ -64,19 +66,20 @@ export default {
             aria: "Navigate to the contact page",
           },
         },
+        navSocialItems: {
+          github: {
+            url: "https://github.com/LucyRa/slide-in-navigation/blob/main/README.md",
+            aria: "Navigate to project GitHub repo",
+          },
+          instagram: {
+            url: "https://www.instagram.com/lramplin/",
+            aria: "Navigate to the LRamplin Instagram profile",
+          },
+        },
       },
     };
   },
   methods: {
-    toggleSlidePanel() {
-      const slidePanel = document.querySelector("div.nav-slide-panel");
-      const navControl = document.querySelector("button.nav-control");
-
-      console.log(navControl);
-
-      navControl.classList.toggle("active");
-      slidePanel.classList.toggle("show");
-    },
     activeNavItem: (active) => {
       return {
         active: active,
@@ -95,13 +98,15 @@ export default {
       };
     },
   },
-  components: { IconArrow, SolidButton },
+  components: { IconArrow, IconGithub, IconInsta, SolidButton },
 };
 </script>
 
 <template>
   <nav class="slide-in-nav">
     <div class="nav-bar">
+      <div class="nav-logo"></div>
+
       <button
         class="nav-control"
         :class="navControlClass"
@@ -144,6 +149,20 @@ export default {
           </span>
         </a>
       </div>
+
+      <div class="nav-social-container">
+        <a
+          v-for="(item, name) in navigation.navSocialItems"
+          :key="item.key"
+          :href="item.url"
+          :aria-label="item.aria"
+          class="nav-social-item"
+        >
+          <IconGithub v-if="name === 'github'" />
+
+          <IconInsta v-if="name === 'instagram'" />
+        </a>
+      </div>
     </div>
   </nav>
 </template>
@@ -169,13 +188,12 @@ nav.slide-in-nav {
 
 .nav-bar {
   width: 100%;
-  min-height: 3.875rem;
+  min-height: 5rem;
   border-radius: 0 0 0.4rem 0.4rem;
   padding: 1.25rem 2.5rem;
-
-  button.nav-control {
-    float: right;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   svg.menu-icon {
     width: 1.5rem;
@@ -234,12 +252,19 @@ button.nav-control {
   }
 }
 
+.nav-logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 5rem;
+  background-color: $brightBlue;
+}
+
 .nav-slide-panel {
   position: absolute;
   right: 0;
-  top: 3.7rem;
+  top: 4.5rem;
   width: 100%;
-  height: calc(100vh - 3.7rem);
+  height: calc(100vh - 4.5rem);
   transform: translateY(100%);
   transition: transform 300ms linear;
   will-change: transform;
@@ -256,8 +281,13 @@ button.nav-control {
   }
 }
 
-.nav-items-container {
+.nav-items-container,
+.nav-actions-container,
+.nav-social-container {
   width: 100%;
+}
+
+.nav-items-container {
   margin-bottom: 2.5rem;
 }
 
@@ -343,13 +373,29 @@ a.nav-action {
   }
 }
 
+.nav-social-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+a.nav-social-item {
+  width: 2.5rem;
+
+  svg {
+    width: 2.5rem;
+  }
+}
+
 @media only screen and (min-width: 480px) {
   .nav-slide-panel {
     max-width: 20rem;
     border-radius: 0.4rem 0 0 0;
     transform: translateX(100%);
-    height: calc(100vh - 5.125rem);
-    top: 5.125rem;
+    height: calc(100vh - 6.25rem);
+    top: 6.25rem;
 
     &.show {
       transform: translateX(0);
