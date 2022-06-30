@@ -237,14 +237,13 @@ button.nav-control {
 .nav-slide-panel {
   position: absolute;
   right: 0;
-  top: 5.125rem;
+  top: 3.7rem;
   width: 100%;
-  height: calc(100vh - 5.125rem);
+  height: calc(100vh - 3.7rem);
   transform: translateY(100%);
   transition: transform 300ms linear;
   will-change: transform;
   padding: 2.5rem 1.25rem;
-  border-radius: 0.4rem 0.4rem 0 0;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -349,6 +348,8 @@ a.nav-action {
     max-width: 20rem;
     border-radius: 0.4rem 0 0 0;
     transform: translateX(100%);
+    height: calc(100vh - 5.125rem);
+    top: 5.125rem;
 
     &.show {
       transform: translateX(0);
