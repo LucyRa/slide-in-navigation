@@ -179,7 +179,7 @@ nav.slide-in-nav {
   top: 5.125rem;
   width: 100%;
   height: calc(100vh - 5.125rem);
-  transform: translateY(100vh);
+  transform: translateY(100%);
   transition: transform 300ms linear;
   will-change: transform;
   padding: 2.5rem 1.25rem;
