@@ -124,7 +124,7 @@ export default {
         >
           <SolidButton v-if="name === 'callToAction'" :name="action.name" />
 
-          <span v-else>
+          <span v-else :class="name">
             {{ action.name }}
           </span>
         </a>
@@ -179,10 +179,11 @@ nav.slide-in-nav {
   top: 5.125rem;
   width: 100%;
   height: calc(100vh - 5.125rem);
-  transform: translateX(100%);
+  transform: translateY(100vh);
   transition: all;
   transition-duration: 400ms;
   padding: 2.5rem 1.25rem;
+  border-radius: 0.4rem 0.4rem 0 0;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -190,7 +191,7 @@ nav.slide-in-nav {
   overflow: scroll;
 
   &.show {
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
@@ -200,7 +201,6 @@ a.nav-item {
   width: fit-content;
   margin-bottom: 1.25rem;
   color: #ffffff;
-  font-weight: 500;
   transition: all 300ms ease-in-out;
 
   svg.arrow-icon {
@@ -230,9 +230,44 @@ a.nav-item {
 
 a.nav-action {
   width: 100%;
+  margin-bottom: 1.25rem;
   button.btn-solid {
     width: 100%;
     margin-top: 1.875rem;
+    color: $white;
+  }
+
+  span {
+    display: block;
+    margin-left: 2.125rem;
+    color: $grey;
+
+    &::before {
+      content: "";
+      display: block;
+      width: 1.375rem;
+      height: 1.375rem;
+      background-size: 1.375rem 1.375rem;
+      background-repeat: no-repeat;
+      position: absolute;
+      left: 1.375rem;
+    }
+
+    &.telephone {
+      &::before {
+        background-image: url("../assets/phone.svg");
+      }
+    }
+
+    &.email {
+      &::before {
+        background-image: url("../assets/mail.svg");
+      }
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 
@@ -240,6 +275,11 @@ a.nav-action {
   .nav-slide-panel {
     max-width: 20rem;
     border-radius: 0.4rem 0 0 0;
+    transform: translateX(100vw);
+
+    &.show {
+      transform: translateX(0);
+    }
   }
 }
 

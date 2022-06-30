@@ -23,6 +23,7 @@ body {
   font-family: 'Inter';
   -webkit-font-smoothing: antialiased;
   font-smooth: always;
+  font-weight: 500;
 
   #app {
     width: 100%;
@@ -39,6 +40,7 @@ button {
   background-color: transparent;
   border: 0;
   box-shadow: none;
+  font-size: 1rem;
 
   &:focus,
   &:active {
