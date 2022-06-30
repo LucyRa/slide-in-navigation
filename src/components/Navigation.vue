@@ -2,50 +2,70 @@
 import "../assets/app.scss";
 import IconMenu from "./icons/IconMenu.vue";
 import IconArrow from "./icons/IconArrow.vue";
+import SolidButton from "./SolidButton.vue";
 
 export default {
   name: "SlideNavigation",
   data() {
     return {
       navVisibility: false,
-      navItems: [
-        {
-          name: "Home",
-          url: "/",
-          aria: "Navigate to homepage",
-          active: true,
+      navigation: {
+        navItems: [
+          {
+            name: "Home",
+            url: "/",
+            aria: "Navigate to homepage",
+            active: true,
+          },
+          {
+            name: "About Us",
+            url: "/",
+            aria: "Navigate to About us",
+            active: false,
+          },
+          {
+            name: "Our Projects",
+            url: "/",
+            aria: "Navigate to Our projects",
+            active: false,
+          },
+          {
+            name: "Developer Guides",
+            url: "/",
+            aria: "Navigate to Developer guides",
+            active: false,
+          },
+          {
+            name: "Free Components",
+            url: "/",
+            aria: "Navigate to Components hub",
+            active: false,
+          },
+          {
+            name: "Reccomended Resources",
+            url: "/",
+            aria: "Navigate to Reccomended resources",
+            active: false,
+          },
+        ],
+        navActions: {
+          telephone: {
+            name: "07123456789",
+            url: "tel:+447123456789",
+            aria: "Call us now",
+          },
+          email: {
+            name: "info@email.com",
+            url: "mailto:info@email.com",
+            aria: "Send us an email",
+          },
+          callToAction: {
+            name: "Get in touch",
+            url: "/",
+            aria: "Navigate to the contact page",
+          },
         },
-        {
-          name: "About Us",
-          url: "/",
-          aria: "Navigate to About us",
-          active: false,
-        },
-        {
-          name: "Our Projects",
-          url: "/",
-          aria: "Navigate to Our projects",
-          active: false,
-        },
-        {
-          name: "Developer Guides",
-          url: "/",
-          aria: "Navigate to Developer guides",
-          active: false,
-        },
-        {
-          name: "Free Components",
-          url: "/",
-          aria: "Navigate to Components hub",
-          active: false,
-        },
-        {
-          name: "Reccomended Resources",
-          url: "/",
-          aria: "Navigate to Reccomended resources",
-          active: false,
-        },
-      ],
+      },
     };
   },
   methods: {
@@ -66,7 +86,7 @@ export default {
       };
     },
   },
-  components: { IconMenu, IconArrow },
+  components: { IconMenu, IconArrow, SolidButton },
 };
 </script>
 
@@ -78,24 +98,42 @@ export default {
       </button>
     </div>
 
-    <div class="nav-slide-panel" v-if="navItems" :class="navClass">
-      <a
-        v-for="item in navItems"
-        :key="item.key"
-        :href="item.url"
-        class="nav-item"
-        :class="activeNavItem(item.active)"
-        :aria-label="item.aria"
-      >
-        {{ item.name }}
+    <div class="nav-slide-panel" v-if="navigation.navItems" :class="navClass">
+      <div class="nav-items-container">
+        <a
+          v-for="item in navigation.navItems"
+          :key="item.key"
+          :href="item.url"
+          class="nav-item"
+          :class="activeNavItem(item.active)"
+          :aria-label="item.aria"
+        >
+          {{ item.name }}
 
-        <IconArrow v-if="item.active == false" />
-      </a>
+          <IconArrow v-if="item.active == false" />
+        </a>
+      </div>
+
+      <div class="nav-actions-container" v-if="navigation.navActions">
+        <a
+          v-for="(action, name) in navigation.navActions"
+          :key="action.key"
+          :href="action.url"
+          class="nav-action"
+          :aria-label="action.aria"
+        >
+          <SolidButton v-if="name === 'callToAction'" :name="action.name" />
+
+          <span v-else>
+            {{ action.name }}
+          </span>
+        </a>
+      </div>
     </div>
   </nav>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../assets/partials/colours.scss";
 
 nav.slide-in-nav {
@@ -105,6 +143,11 @@ nav.slide-in-nav {
   left: 0;
   right: 0;
   width: 100vw;
+}
+
+.nav-items-container {
+  width: 100%;
+  margin-bottom: 2.5rem;
 }
 
 .nav-bar,
@@ -118,7 +161,7 @@ nav.slide-in-nav {
 .nav-bar {
   width: 100%;
   min-height: 3.875rem;
-  border-radius: 0 0 0.5rem 0.5rem;
+  border-radius: 0 0 0.4rem 0.4rem;
 
   button.nav-control {
     float: right;
@@ -135,13 +178,16 @@ nav.slide-in-nav {
   right: 0;
   top: 5.125rem;
   width: 100%;
-  max-width: 20rem;
   height: calc(100vh - 5.125rem);
-  border-radius: 0.5rem 0 0 0;
   transform: translateX(100%);
   transition: all;
   transition-duration: 400ms;
-  padding: 3.75rem 2.5rem;
+  padding: 2.5rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: scroll;
 
   &.show {
     transform: translateX(0);
@@ -152,8 +198,9 @@ a.nav-item {
   display: block;
   position: relative;
   width: fit-content;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   color: #ffffff;
+  font-weight: 500;
   transition: all 300ms ease-in-out;
 
   svg.arrow-icon {
@@ -163,6 +210,7 @@ a.nav-item {
   }
 
   &.active {
+    font-size: 1.125rem;
     color: $lightGreen;
   }
 
@@ -172,6 +220,50 @@ a.nav-item {
 
   &:hover {
     transform: scale(1.06);
+  }
+}
+
+.nav-actions-container {
+  padding-top: 1.875rem;
+  border-top: 1px solid $white;
+}
+
+a.nav-action {
+  width: 100%;
+  button.btn-solid {
+    width: 100%;
+    margin-top: 1.875rem;
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  .nav-slide-panel {
+    max-width: 20rem;
+    border-radius: 0.4rem 0 0 0;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .nav-items-container {
+    margin-bottom: 3.75rem;
+  }
+
+  .nav-slide-panel {
+    padding: 3.75rem 2.5rem;
+  }
+
+  a.nav-item {
+    margin-bottom: 1.5rem;
+  }
+
+  .nav-actions-container {
+    padding-top: 2.5rem;
+  }
+
+  a.nav-action {
+    button.btn-solid {
+      margin-top: 2.5rem;
+    }
   }
 }
 </style>

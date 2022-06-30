@@ -21,6 +21,8 @@ body {
   width: 100vw;
   margin: 0;
   font-family: 'Inter';
+  -webkit-font-smoothing: antialiased;
+  font-smooth: always;
 
   #app {
     width: 100%;
@@ -29,6 +31,7 @@ body {
 }
 
 a {
+  display: block;
   text-decoration: none;
 }
 
