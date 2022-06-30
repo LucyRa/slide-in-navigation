@@ -25,3 +25,21 @@ body {
     height: 100%;
   }
 }
+
+button {
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+
+  &:focus,
+  &:active {
+    border: 0;
+    box-shadow: none;
+  }
+}
+
+@media (hover: hover) {
+  button {
+    cursor: pointer;
+  }
+}

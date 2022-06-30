@@ -3,10 +3,60 @@ import "../assets/app.scss";
 import IconMenu from "./icons/IconMenu.vue";
 export default {
   name: "SlideNavigation",
+  data() {
+    return {
+      navVisibility: false,
+      navItems: [
+        {
+          name: "Home",
+          url: "/",
+          aria: "Navigate to homepage",
+          active: true,
+        },
+        {
+          name: "About Us",
+          url: "/",
+          aria: "Navigate to About us",
+          active: false,
+        },
+        {
+          name: "Our Projects",
+          url: "/",
+          aria: "Navigate to Our projects",
+          active: false,
+        },
+        {
+          name: "Developer Guides",
+          url: "/",
+          aria: "Navigate to Developer guides",
+          active: false,
+        },
+        {
+          name: "Free Components",
+          url: "/",
+          aria: "Navigate to Components hub",
+          active: true,
+        },
+        {
+          name: "Reccomended Resources",
+          url: "/",
+          aria: "Navigate to Reccomended resources",
+          active: false,
+        },
+      ],
+    };
+  },
   methods: {
     toggleSlidePanel() {
       const slidePanel = document.querySelector("div.nav-slide-panel");
       slidePanel.classList.toggle("open");
+    },
+  },
+  computed: {
+    navClass: function () {
+      return {
+        show: this.navVisibility,
+      };
     },
   },
   components: { IconMenu },
@@ -16,12 +66,16 @@ export default {
 <template>
   <nav class="slide-in-nav">
     <div class="nav-bar">
-      <button @click.prevent="toggleSlidePanel">
+      <button class="nav-control" @click="navVisibility = !navVisibility">
         <IconMenu />
       </button>
     </div>
 
-    <div class="nav-slide-panel"></div>
+    <div class="nav-slide-panel" v-if="navItems" :class="navClass">
+      <a v-for="item in navItems" :key="item.key" :href="item.url">
+        {{ item.name }}
+      </a>
+    </div>
   </nav>
 </template>
 
@@ -35,19 +89,42 @@ nav.slide-in-nav {
   left: 0;
   right: 0;
   width: 100vw;
+}
 
-  .nav-bar {
-    width: 100%;
-    background-color: $darkBg;
-    padding: 1.25rem;
-    border-radius: 0 0 0.5rem 0.5rem;
+.nav-bar,
+.nav-slide-panel {
+  background-color: $darkBg;
+  padding: 1.25rem;
+}
+
+.nav-bar {
+  width: 100%;
+  min-height: 5rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+
+  button.nav-control {
+    float: right;
   }
 
-  .nav-slide-panel {
-    position: absolute;
-    right: 0;
-    bottom: 1.25rem;
-    max-width: 20rem;
+  svg.menu-icon {
+    width: 2.5rem;
+    color: $white;
+  }
+}
+
+.nav-slide-panel {
+  position: absolute;
+  right: 0;
+  top: 6.25rem;
+  max-width: 20rem;
+  height: calc(100vh - 6.25rem);
+  border-radius: 0.5rem 0 0 0.5rem;
+  transform: translateX(100%);
+  transition: all;
+  transition-duration: 300ms;
+
+  &.show {
+    transform: translateX(0);
   }
 }
 </style>
