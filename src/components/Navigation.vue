@@ -1,6 +1,7 @@
 <script>
 import "../assets/app.scss";
 import IconMenu from "./icons/IconMenu.vue";
+
 export default {
   name: "SlideNavigation",
   data() {
@@ -72,7 +73,13 @@ export default {
     </div>
 
     <div class="nav-slide-panel" v-if="navItems" :class="navClass">
-      <a v-for="item in navItems" :key="item.key" :href="item.url">
+      <a
+        v-for="item in navItems"
+        :key="item.key"
+        :href="item.url"
+        class="nav-item"
+        :aria-label="item.aria"
+      >
         {{ item.name }}
       </a>
     </div>
