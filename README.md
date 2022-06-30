@@ -1,6 +1,6 @@
 # Slide in Navigation (Component)
 
-![Rendering of slide in navigation component](https://github.com/LucyRa/slide-in-navigation/blob/main/src/assets/nav-slide-glass.png?raw=true)
+![Rendering of slide in navigation component](https://raw.githubusercontent.com/LucyRa/slide-in-navigation/main/nav-slide-glass.png)
 
 ## Project Setup
 
