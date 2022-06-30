@@ -1,6 +1,7 @@
 <script>
 import "../assets/app.scss";
 import IconMenu from "./icons/IconMenu.vue";
+import IconArrow from "./icons/IconArrow.vue";
 
 export default {
   name: "SlideNavigation",
@@ -36,7 +37,7 @@ export default {
           name: "Free Components",
           url: "/",
           aria: "Navigate to Components hub",
-          active: true,
+          active: false,
         },
         {
           name: "Reccomended Resources",
@@ -52,6 +53,11 @@ export default {
       const slidePanel = document.querySelector("div.nav-slide-panel");
       slidePanel.classList.toggle("open");
     },
+    activeNavItem: (active) => {
+      return {
+        active: active,
+      };
+    },
   },
   computed: {
     navClass: function () {
@@ -60,7 +66,7 @@ export default {
       };
     },
   },
-  components: { IconMenu },
+  components: { IconMenu, IconArrow },
 };
 </script>
 
@@ -78,9 +84,12 @@ export default {
         :key="item.key"
         :href="item.url"
         class="nav-item"
+        :class="activeNavItem(item.active)"
         :aria-label="item.aria"
       >
         {{ item.name }}
+
+        <IconArrow v-if="item.active == false" />
       </a>
     </div>
   </nav>
@@ -128,7 +137,7 @@ nav.slide-in-nav {
   width: 100%;
   max-width: 20rem;
   height: calc(100vh - 5.125rem);
-  border-radius: 0.5rem 0 0 0.5rem;
+  border-radius: 0.5rem 0 0 0;
   transform: translateX(100%);
   transition: all;
   transition-duration: 400ms;
@@ -142,12 +151,27 @@ nav.slide-in-nav {
 a.nav-item {
   display: block;
   position: relative;
-  width: 100%;
+  width: fit-content;
   margin-bottom: 1.5rem;
   color: #ffffff;
+  transition: all 300ms ease-in-out;
+
+  svg.arrow-icon {
+    width: 1.125rem;
+    color: $brightBlue;
+    margin-left: 0.5rem;
+  }
+
+  &.active {
+    color: $lightGreen;
+  }
 
   &:last-child {
     margin-bottom: 0;
+  }
+
+  &:hover {
+    transform: scale(1.06);
   }
 }
 </style>
